@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web.Http;
+using System.Web.WebPages;
+using ExampleLibraryProject;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Microsoft.Owin.Security.OAuth;
+using Ninject;
 using Owin;
 using OwinNinjectProject.Providers;
 using OwinNinjectProject.Models;
@@ -19,9 +23,17 @@ namespace OwinNinjectProject
 
         public static string PublicClientId { get; private set; }
 
+        private void HypotheticalImportantInitialization()
+        {
+            var factory = (IFactory)GlobalConfiguration.Configuration.DependencyResolver.GetService(typeof(IFactory));
+            factory.DoSomePreInitialization();
+        }
+
         // For more information on configuring authentication, please visit http://go.microsoft.com/fwlink/?LinkId=301864
         public void ConfigureAuth(IAppBuilder app)
         {
+            HypotheticalImportantInitialization();
+
             // Configure the db context and user manager to use a single instance per request
             app.CreatePerOwinContext(ApplicationDbContext.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
@@ -63,6 +75,6 @@ namespace OwinNinjectProject
             //    ClientId = "",
             //    ClientSecret = ""
             //});
-        }
+        }        
     }
 }

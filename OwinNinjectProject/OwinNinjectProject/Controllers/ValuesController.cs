@@ -4,12 +4,20 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using ExampleLibraryProject;
 
 namespace OwinNinjectProject.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class ValuesController : ApiController
     {
+        private readonly IFactory _factory;
+
+        public ValuesController(IFactory factory)
+        {
+            _factory = factory;
+        }
+
         // GET api/values
         public IEnumerable<string> Get()
         {
@@ -19,7 +27,8 @@ namespace OwinNinjectProject.Controllers
         // GET api/values/5
         public string Get(int id)
         {
-            return "value";
+            return _factory.Text(id);
+            //return "value";
         }
 
         // POST api/values
