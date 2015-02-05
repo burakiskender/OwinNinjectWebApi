@@ -13,6 +13,8 @@ namespace OwinNinjectProject
     // Lazy Kernel based on: http://stackoverflow.com/questions/25351034/resolving-dependencies-in-owin-web-api-startup-cs-with-ninject
     // Ninject Dependency Resolver based on: http://stackoverflow.com/questions/23896806/how-to-use-ninject-bootstrapper-in-webapi-owinhost-startup
 
+    // Idea from: http://www.strathweb.com/2013/12/owin-memory-integration-testing/
+
     public partial class Startup
     {
         private readonly Lazy<IKernel> _kernel = new Lazy<IKernel>(NinjectConfig.RegisterNinject);
